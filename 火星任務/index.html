@@ -118,6 +118,12 @@
 
   .mars {
     z-index: 3;
+    top: 50vh;
+    transform: translate(-50vh, -50vh);
+    position: absolute;
+    visibility: hidden;
+    clip-path: inset(0, 0, 0, 0);
+    transition: 1s ease-out;
   }
 
   .rocket {
@@ -287,7 +293,7 @@
 
   <div class="modal fade" id="curiosityPhotoModal" aria-hidden="true" aria-labelledby="curiosityPhotoModalToggleLabel"
     tabindex="-1">
-    <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-dialog modal">
       <div class="modal-content">
         <div class="modal-header">
           <h1 class="modal-title fs-5" id="curiosityPhotoModalToggleLabel">搜尋相機</h1>
@@ -328,13 +334,13 @@
 
       let jupiterMove = -150;
       let earthMove = -300;
-      let marsMove = -300;
+      let marsMove = -100;
       let rocketMove = -100
       let curiosityMove = -100;
 
       let jupiterSpeed = 1.2;     //1.2
       let earthSpeed = 8.5;       //8.5
-      let marsSpeed = 6;        //6
+      let marsSpeed = 0.7;        //0.5
       let rocketSpeed = 3.5;
 
       let curiositySpeed = 3;
@@ -418,19 +424,20 @@
       }
 
       let marsFinalPoint = marsMove;
-      const halfMarsViewportWidth = window.innerWidth / 2;
+      const halfMarsViewportWidth = (window.innerHeight / 18.55).toFixed(2);
       function marsAnimation() {
         marsInterval = setInterval(function () {
           mars.style.visibility = 'visible';
           marsMove += marsSpeed;
-          mars.style.transform = `translate(-50%, -50%) translateX(${marsMove}px)`;
+          mars.style.transform = `translate(-50%, -50%) translateX(${marsMove}vw)`;
           marsFinalPoint = marsMove;
           if (marsMove >= halfMarsViewportWidth) {
             clearInterval(marsInterval);
             rocketAnimation();
-          }
-        }, 16);
-      }
+            mars.style.transform = `translate(-50%, -50%) translateX(50vw)`;
+    }
+  }, 16);
+}
 
 
       let stopRocketAnimation;
